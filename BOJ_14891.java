@@ -2,10 +2,10 @@ import java.util.*;
 
 public class Main {
 
-	private static ArrayList<LinkedList<Integer>> wheelList = new ArrayList<>();
+	private static ArrayList<LinkedList<Integer>> gearList = new ArrayList<>();
 	
 	public static boolean compareElectrode(int before, int after) {
-		if(wheelList.get(before).get(2) == wheelList.get(after).get(6)) {
+		if(gearList.get(before).get(2) == gearList.get(after).get(6)) {
 			return true;
 		}
 		return false;
@@ -17,28 +17,19 @@ public class Main {
 		}
 		
 		if(flag == 1) {
-			wheelList.get(num).addFirst(wheelList.get(num).removeLast());
+			gearList.get(num).addFirst(gearList.get(num).removeLast());
 		}else {
-			wheelList.get(num).addLast(wheelList.get(num).removeFirst());
+			gearList.get(num).addLast(gearList.get(num).removeFirst());
 		}
 	}
 	
 	public static int calculateScore() {
 		int score = 0;
-		if(wheelList.get(0).get(0) == 1) {
-			score += 1;
-		}
 		
-		if(wheelList.get(1).get(0) == 1) {
-			score += 2;
-		}
-		
-		if(wheelList.get(2).get(0) == 1) {
-			score += 4;
-		}
-		
-		if(wheelList.get(3).get(0) == 1) {
-			score += 8;
+		for(int i=0; i<4; i++) {
+			if(gearList.get(i).get(0) == 1) {
+				score += 1<<i;
+			}
 		}
 		
 		return score;
@@ -74,13 +65,13 @@ public class Main {
 		
 		for(int i=0; i<4; i++) {
 			input[i] = sc.nextLine();
-			LinkedList<Integer> wheel = new LinkedList<>();
+			LinkedList<Integer> gear = new LinkedList<>();
 			
 			for(int j=0; j<8; j++) {
-				wheel.add(input[i].charAt(j) - '0');
+				gear.add(input[i].charAt(j) - '0');
 			}
 			
-			wheelList.add(wheel);
+			gearList.add(gear);
 		}
 		
 		int K = sc.nextInt();
